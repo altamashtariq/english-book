@@ -22,16 +22,7 @@ The book brings together perspectives on:
 
 ---
 
-## 👨‍💻 Authors
-
-- Altamash Tariq  
-- Lohitaksh Choudhary  
-- Shardul Chaturvedi  
-- Harisrat Kaur  
-- Tejas Sharma  
-- Prajit Verma  
-
----
+## Pbl submission for English
 
 ## 🎯 Objectives
 
