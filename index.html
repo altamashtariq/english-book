@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soil to Sky — India's Self-Reliant Rise</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --saffron: #E8890A;
+    --deep-saffron: #C4720A;
+    --white-cream: #F7F4EC;
+    --india-green: #1A6B35;
+    --deep-green: #0F4820;
+    --crimson: #C0392B;
+    --deep-crimson: #8B1A11;
+    --ink: #1A1209;
+    --gold: #C9A84C;
+    --warm-shadow: rgba(200, 140, 30, 0.12);
+    --border-gold: rgba(201, 168, 76, 0.3);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: var(--white-cream);
+    color: var(--ink);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* ===== HERO / LANDING ===== */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--white-cream);
+  }
+
+  .flag-stripe-top {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 7px;
+    background: linear-gradient(to bottom, var(--saffron) 33%, white 33%, white 66%, var(--india-green) 66%);
+  }
+
+  .flag-wave {
+    position: absolute;
+    top: -20px; left: -5%; right: -5%;
+    height: 180px;
+    pointer-events: none;
+    opacity: 0.85;
+  }
+
+  .hero-mandala {
+    position: absolute;
+    bottom: -80px; right: -80px;
+    width: 500px; height: 500px;
+    opacity: 0.04;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    text-align: center;
+    z-index: 2;
+    padding: 2rem;
+    animation: fadeUp 1.2s ease both;
+  }
+
+  .hero-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(11px, 1.8vw, 14px);
+    letter-spacing: 0.35em;
+    color: var(--india-green);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    font-weight: 300;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 10vw, 110px);
+    font-weight: 900;
+    color: var(--crimson);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    text-shadow: 3px 3px 0 rgba(192,57,43,0.12);
+    margin-bottom: 1rem;
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 3vw, 26px);
+    color: var(--ink);
+    font-weight: 300;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(13px, 1.6vw, 16px);
+    color: var(--india-green);
+    letter-spacing: 0.05em;
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+  }
+
+  .divider-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 1.5rem auto;
+    width: fit-content;
+  }
+  .divider-ornament span { display: block; height: 1px; width: 60px; background: var(--gold); }
+  .divider-ornament .diamond {
+    width: 7px; height: 7px; background: var(--saffron);
+    transform: rotate(45deg); flex-shrink: 0;
+  }
+
+  .btn-enter {
+    display: inline-block;
+    padding: 14px 40px;
+    border: 1.5px solid var(--crimson);
+    color: var(--crimson);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+  .btn-enter:hover {
+    background: var(--crimson);
+    color: var(--white-cream);
+  }
+
+  .hero-authors {
+    margin-top: 3rem;
+    font-size: 12px;
+    color: #888;
+    letter-spacing: 0.1em;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* ===== BOOK LAYOUT ===== */
+  #book-section {
+    min-height: 100vh;
+    display: none;
+    background: var(--white-cream);
+  }
+  #book-section.open { display: flex; }
+
+  .sidebar {
+    width: 300px;
+    min-width: 260px;
+    max-width: 300px;
+    background: var(--ink);
+    color: var(--white-cream);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    overflow-y: auto;
+    z-index: 100;
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .sidebar-header {
+    padding: 2rem 1.5rem 1.5rem;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    flex-shrink: 0;
+  }
+
+  .sidebar-book-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--saffron);
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  .sidebar-book-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    color: rgba(247,244,236,0.5);
+    letter-spacing: 0.08em;
+    font-style: italic;
+  }
+
+  .sidebar-toc-label {
+    padding: 1rem 1.5rem 0.5rem;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: rgba(247,244,236,0.35);
+    text-transform: uppercase;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .chapter-nav {
+    list-style: none;
+    padding: 0 0 2rem;
+  }
+
+  .chapter-nav li button {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 10px 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    transition: background 0.2s;
+    color: rgba(247,244,236,0.7);
+  }
+
+  .chapter-nav li button:hover {
+    background: rgba(255,255,255,0.06);
+    color: var(--white-cream);
+  }
+
+  .chapter-nav li button.active {
+    background: rgba(201,168,76,0.12);
+    color: var(--saffron);
+    border-left: 2px solid var(--saffron);
+  }
+
+  .ch-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    min-width: 24px;
+    padding-top: 3px;
+    opacity: 0.7;
+  }
+
+  .ch-info { flex: 1; }
+
+  .ch-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 2px;
+  }
+
+  .ch-sub {
+    font-family: 'Crimson Pro', serif;
+    font-size: 11px;
+    opacity: 0.5;
+    font-style: italic;
+  }
+
+  /* ===== CONTENT AREA ===== */
+  .content-area {
+    margin-left: 300px;
+    flex: 1;
+    min-height: 100vh;
+    padding: 0;
+    position: relative;
+  }
+
+  /* ===== CHAPTER CONTENT ===== */
+  .chapter-page {
+    display: none;
+    min-height: 100vh;
+    animation: fadeContent 0.5s ease both;
+  }
+  .chapter-page.active { display: block; }
+
+  @keyframes fadeContent {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .chapter-hero {
+    min-height: 38vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 3rem 4rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ch1-hero { background: linear-gradient(135deg, #F7F4EC 0%, #E8DCC8 100%); border-bottom: 3px solid var(--saffron); }
+  .ch2-hero { background: linear-gradient(135deg, #EBF3EC 0%, #C8DCC8 100%); border-bottom: 3px solid var(--india-green); }
+  .ch3-hero { background: linear-gradient(135deg, #FFF8ED 0%, #F5E5C0 100%); border-bottom: 3px solid var(--gold); }
+  .ch4-hero { background: linear-gradient(135deg, #F5EFFF 0%, #DDD0F5 100%); border-bottom: 3px solid #7C5CBF; }
+  .ch5-hero { background: linear-gradient(135deg, #FFF0F0 0%, #F5C8C0 100%); border-bottom: 3px solid var(--crimson); }
+  .ch6-hero { background: linear-gradient(135deg, #1A1209 0%, #2C1F0A 100%); border-bottom: 3px solid var(--saffron); }
+  .ch0-hero { background: linear-gradient(135deg, var(--ink) 0%, #2C1F0A 100%); }
+  .ch7-hero { background: linear-gradient(135deg, #F7F4EC 0%, #E5DFD0 100%); border-bottom: 1px solid var(--border-gold); }
+
+  .chapter-hero-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 0.8rem;
+  }
+
+  .chapter-hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 0.6rem;
+  }
+
+  .chapter-hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(14px, 2vw, 18px);
+    font-style: italic;
+    opacity: 0.65;
+  }
+
+  .dark-hero .chapter-hero-num,
+  .dark-hero .chapter-hero-title,
+  .dark-hero .chapter-hero-subtitle { color: var(--white-cream); }
+  .dark-hero .chapter-hero-title { color: var(--saffron); }
+
+  .hero-deco {
+    position: absolute;
+    right: 3rem; top: 50%;
+    transform: translateY(-50%);
+    font-size: 120px;
+    opacity: 0.07;
+    pointer-events: none;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    color: var(--ink);
+  }
+
+  /* ===== BOOK BODY ===== */
+  .book-body {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 3rem 4rem 5rem;
+  }
+
+  .book-body h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-weight: 700;
+    margin: 2.5rem 0 1rem;
+    color: var(--crimson);
+    border-left: 3px solid var(--saffron);
+    padding-left: 14px;
+  }
+
+  .book-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(15px, 2vw, 19px);
+    font-weight: 400;
+    font-style: italic;
+    margin: 2rem 0 0.8rem;
+    color: var(--india-green);
+  }
+
+  .book-body p {
+    font-size: clamp(15px, 1.8vw, 17px);
+    line-height: 1.85;
+    margin-bottom: 1.1rem;
+    color: #2A1E0A;
+  }
+
+  .book-body ul {
+    margin: 0.8rem 0 1rem 1.5rem;
+  }
+
+  .book-body li {
+    font-size: clamp(14px, 1.6vw, 16px);
+    line-height: 1.8;
+    margin-bottom: 0.5rem;
+    color: #2A1E0A;
+  }
+
+  /* STORY CARD */
+  .story-card {
+    background: white;
+    border: 1px solid var(--border-gold);
+    border-left: 4px solid var(--saffron);
+    border-radius: 2px;
+    padding: 1.8rem 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 4px 24px rgba(200,140,30,0.08);
+    position: relative;
+  }
+
+  .story-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 60px; height: 60px;
+    background: linear-gradient(135deg, transparent 50%, rgba(232,137,10,0.07) 50%);
+  }
+
+  .story-card-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    font-family: 'Cormorant Garamond', serif;
+    margin-bottom: 6px;
+  }
+
+  .story-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(16px, 2vw, 20px);
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 4px;
+    font-style: normal;
+  }
+
+  .story-card .author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    color: var(--india-green);
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+
+  .story-card p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3A2A0A;
+    margin-bottom: 0.8rem;
+  }
+
+  /* BLOCKQUOTE */
+  .literary-quote {
+    border-left: 3px solid var(--india-green);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: rgba(26,107,53,0.04);
+  }
+
+  .literary-quote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px, 2vw, 19px);
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .literary-quote cite {
+    font-size: 12px;
+    color: var(--india-green);
+    letter-spacing: 0.08em;
+    font-style: normal;
+  }
+
+  /* ATMANIRBHAR CONNECTION BOX */
+  .connection-box {
+    background: linear-gradient(135deg, #FFF8F0, #FFF3E6);
+    border: 1px solid rgba(232,137,10,0.25);
+    border-top: 3px solid var(--saffron);
+    padding: 1.5rem 1.8rem;
+    margin: 1.5rem 0;
+    border-radius: 2px;
+  }
+
+  .connection-box .label {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--deep-saffron);
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .connection-box p {
+    font-size: 14.5px;
+    color: #3A2000;
+    line-height: 1.75;
+    margin-bottom: 0;
+  }
+
+  /* COVER PAGE */
+  .cover-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: var(--white-cream);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-flag-waves {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 200px;
+    pointer-events: none;
+  }
+
+  .cover-illustration {
+    font-size: 80px;
+    margin-bottom: 1.5rem;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 9vw, 90px);
+    font-weight: 900;
+    color: var(--crimson);
+    line-height: 0.95;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 0 rgba(192,57,43,0.1);
+  }
+
+  .cover-sub { font-family: 'Cormorant Garamond', serif; font-size: clamp(20px, 3vw, 28px); color: var(--ink); font-style: italic; margin-bottom: 0.5rem; }
+  .cover-how { font-family: 'Cormorant Garamond', serif; font-size: clamp(12px, 1.5vw, 15px); color: var(--india-green); letter-spacing: 0.08em; margin-bottom: 3rem; }
+
+  .team-box {
+    background: white;
+    border: 1px solid var(--border-gold);
+    padding: 1.5rem 2rem;
+    max-width: 480px;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  .team-box .team-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--saffron); margin-bottom: 10px; font-family: 'Cormorant Garamond', serif; }
+  .team-box p { font-size: 13px; line-height: 1.7; color: #555; margin: 0; font-family: 'Crimson Pro', serif; }
+
+  /* TIMELINE THREAD */
+  .thread-item {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    align-items: flex-start;
+  }
+
+  .thread-dot {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    margin-top: 3px;
+  }
+
+  .td-saffron { background: var(--saffron); }
+  .td-green { background: var(--india-green); }
+  .td-crimson { background: var(--crimson); }
+  .td-gold { background: var(--gold); }
+  .td-purple { background: #7C5CBF; }
+
+  .thread-body h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .thread-body p {
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: #4A3A1A;
+    margin-bottom: 0;
+  }
+
+  /* BIBLIOGRAPHY */
+  .bib-entry {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: #3A2A0A;
+    font-family: 'Crimson Pro', serif;
+  }
+
+  /* TOP NAV BAR */
+  .top-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--border-gold);
+    background: rgba(247,244,236,0.95);
+    backdrop-filter: blur(8px);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .top-bar-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    color: var(--ink);
+    font-style: italic;
+    opacity: 0.6;
+    flex: 1;
+  }
+
+  .nav-arrows { display: flex; gap: 8px; }
+
+  .nav-arrow {
+    width: 34px; height: 34px;
+    border: 1px solid var(--border-gold);
+    background: transparent;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    color: var(--ink);
+    transition: all 0.2s;
+    font-family: monospace;
+  }
+
+  .nav-arrow:hover { background: var(--saffron); color: white; border-color: var(--saffron); }
+  .nav-arrow:disabled { opacity: 0.25; cursor: default; }
+
+  .progress-bar {
+    height: 2px;
+    background: var(--saffron);
+    transition: width 0.4s ease;
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 999;
+  }
+
+  /* MOBILE MENU */
+  .menu-toggle {
+    display: none;
+    width: 36px; height: 36px;
+    border: 1px solid var(--border-gold);
+    background: transparent;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .menu-toggle span { display: block; width: 18px; height: 1.5px; background: var(--ink); }
+
+  @media (max-width: 768px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.mobile-open { transform: translateX(0); }
+    .content-area { margin-left: 0; }
+    .menu-toggle { display: flex; }
+    .book-body { padding: 2rem 1.5rem 4rem; }
+    .chapter-hero { padding: 2rem 1.5rem 1.5rem; }
+    .hero-deco { display: none; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* BACK TO COVER */
+  .back-cover-btn {
+    border: none;
+    background: none;
+    color: var(--india-green);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+    transition: opacity 0.2s;
+    text-decoration: none;
+    padding: 0;
+  }
+  .back-cover-btn:hover { opacity: 0.7; }
+
+  .sidebar-bottom {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(201,168,76,0.15);
+    margin-top: auto;
+  }
+
+  .sidebar-bottom-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px;
+    color: rgba(247,244,236,0.25);
+    letter-spacing: 0.08em;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  .reading-progress-ring {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.8rem 1.5rem;
+    border-top: 1px solid rgba(201,168,76,0.1);
+  }
+
+  .progress-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: rgba(247,244,236,0.3);
+    text-transform: uppercase;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .progress-fill {
+    flex: 1;
+    height: 2px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 1px;
+  }
+
+  .progress-fill-bar {
+    height: 100%;
+    background: var(--saffron);
+    border-radius: 1px;
+    transition: width 0.4s ease;
+  }
+
+  .progress-pct {
+    font-size: 10px;
+    color: var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    min-width: 28px;
+    text-align: right;
+  }
+
+  /* OVERLAY for mobile */
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 90;
+  }
+  .sidebar-overlay.active { display: block; }
+</style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar" id="progressBar" style="width: 0%"></div>
+
+<!-- ===== HERO LANDING ===== -->
+<section id="hero">
+  <div class="flag-stripe-top"></div>
+
+  <svg class="flag-wave" viewBox="0 0 1200 180" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M-50,0 Q200,60 450,20 Q700,-20 950,50 Q1150,90 1250,40 L1250,60 Q1150,110 950,70 Q700,0 450,40 Q200,80 -50,20Z" fill="#E8890A" opacity="0.9"/>
+    <path d="M-50,20 Q200,80 450,40 Q700,0 950,70 Q1150,110 1250,60 L1250,100 Q1150,150 950,110 Q700,40 450,80 Q200,120 -50,60Z" fill="white" opacity="0.95"/>
+    <path d="M-50,60 Q200,120 450,80 Q700,40 950,110 Q1150,150 1250,100 L1250,140 Q1150,180 950,150 Q700,80 450,120 Q200,160 -50,100Z" fill="#1A6B35" opacity="0.9"/>
+  </svg>
+
+  <!-- Decorative mandala SVG -->
+  <svg class="hero-mandala" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="#C9A84C" stroke-width="1">
+      <circle cx="200" cy="200" r="180"/>
+      <circle cx="200" cy="200" r="150"/>
+      <circle cx="200" cy="200" r="120"/>
+      <circle cx="200" cy="200" r="90"/>
+      <circle cx="200" cy="200" r="60"/>
+      <circle cx="200" cy="200" r="30"/>
+      <line x1="20" y1="200" x2="380" y2="200"/>
+      <line x1="200" y1="20" x2="200" y2="380"/>
+      <line x1="73" y1="73" x2="327" y2="327"/>
+      <line x1="327" y1="73" x2="73" y2="327"/>
+      <line x1="20" y1="127" x2="380" y2="273"/>
+      <line x1="20" y1="273" x2="380" y2="127"/>
+      <line x1="127" y1="20" x2="273" y2="380"/>
+      <line x1="273" y1="20" x2="127" y2="380"/>
+    </g>
+  </svg>
+
+  <div class="hero-content">
+    <p class="hero-tagline">A Literary Journey · Atmanirbhar Bharat</p>
+    <h1 class="hero-title">SOIL<br>TO SKY</h1>
+    <div class="divider-ornament">
+      <span></span><div class="diamond"></div><span></span>
+    </div>
+    <p class="hero-subtitle">India's Self-Reliant Rise</p>
+    <p class="hero-desc">How Indian Literature Echoes the Spirit of Atmanirbhar Bharat</p>
+    <button class="btn-enter" onclick="openBook()">Open the Book</button>
+    <p class="hero-authors">By Altamash Tariq, Lohitaksh Choudhary, Shardul Chaturvedi,<br>Prajit Verma, Harisrat Kaur &amp; Tejas Sharma · SRM IST 2026</p>
+  </div>
+</section>
+
+<!-- ===== BOOK SECTION ===== -->
+<div id="book-section">
+
+  <!-- Mobile overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-book-title">Soil to Sky</div>
+      <div class="sidebar-book-sub">India's Self-Reliant Rise</div>
+    </div>
+
+    <div class="sidebar-toc-label">Table of Contents</div>
+
+    <ul class="chapter-nav" id="chapterNav">
+      <li><button onclick="goTo(0)" id="nav-0" class="active">
+        <span class="ch-num">—</span>
+        <span class="ch-info">
+          <span class="ch-title">Cover &amp; Preface</span>
+          <span class="ch-sub">About this work</span>
+        </span>
+      </button></li>
+      <li><button onclick="goTo(1)" id="nav-1">
+        <span class="ch-num">01</span>
+        <span class="ch-info">
+          <span class="ch-title">Introduction</span>
+          <span class="ch-sub">The idea of self-reliance</span>
+        </span>
+      </button></li>
+      <li><button onclick="goTo(2)" id="nav-2">
+        <span class="ch-num">02</span>
+        <span class="ch-info">
+          <span class="ch-title">The Golden Harvest</span>
+          <span class="ch-sub">Roots of rural strength</span>
+        </span>
+      </button></li>
+      <li><button onclick="goTo(3)" id="nav-3">
+        <span class="ch-num">03</span>
+        <span class="ch-info">
+          <span class="ch-title">The Bazaar of Dreams</span>
+          <span class="ch-sub">Rise of Indian entrepreneurship</span>
+        </span>
+      </button></li>
+      <li><button onclick="goTo(4)" id="nav-4">
+        <span class="ch-num">04</span>
+        <span class="ch-info">
+          <span class="ch-title">The Tapestry of Time</span>
+          <span class="ch-sub">Culture as strength</span>
+        </span>
+      </button></li>
+      <li><button onclick="goTo(5)" id="nav-5">
+        <span class="ch-num">05</span>
+        <span class="ch-info">
+          <span class="ch-title">Color of Change</span>
+          <span class="ch-sub">Youth, innovation &amp; empowerment</span>
+        </span>
+      </button></li>
+      <li><button onclick="goTo(6)" id="nav-6">
+        <span class="ch-num">06</span>
+        <span class="ch-info">
+          <span class="ch-title">Conclusion</span>
+          <span class="ch-sub">The literary vision</span>
+        </span>
+      </button></li>
+      <li><button onclick="goTo(7)" id="nav-7">
+        <span class="ch-num">—</span>
+        <span class="ch-info">
+          <span class="ch-title">Bibliography</span>
+          <span class="ch-sub">Sources &amp; references</span>
+        </span>
+      </button></li>
+    </ul>
+
+    <div class="reading-progress-ring">
+      <span class="progress-label">Reading</span>
+      <div class="progress-fill"><div class="progress-fill-bar" id="sidebarProgress" style="width:0%"></div></div>
+      <span class="progress-pct" id="sidebarPct">0%</span>
+    </div>
+
+    <div class="sidebar-bottom">
+      <div class="sidebar-bottom-text">SRM Institute of Science &amp; Technology<br>Communicative English · 21LEH101</div>
+    </div>
+  </nav>
+
+  <!-- CONTENT AREA -->
+  <main class="content-area">
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+      <button class="menu-toggle" id="menuToggle" onclick="toggleSidebar()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <span class="top-bar-title" id="topBarTitle">Cover &amp; Preface</span>
+      <div class="nav-arrows">
+        <button class="nav-arrow" id="prevBtn" onclick="prevChapter()" disabled>&#8592;</button>
+        <button class="nav-arrow" id="nextBtn" onclick="nextChapter()">&#8594;</button>
+      </div>
+    </div>
+
+    <!-- ===== CHAPTER 0: COVER ===== -->
+    <div class="chapter-page active" id="ch-0">
+      <div class="cover-page">
+        <svg class="cover-flag-waves" viewBox="0 0 1200 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M-50,0 Q200,70 450,25 Q700,-15 950,55 Q1150,95 1250,45 L1250,65 Q1150,115 950,75 Q700,5 450,45 Q200,85 -50,25Z" fill="#E8890A"/>
+          <path d="M-50,25 Q200,85 450,45 Q700,5 950,75 Q1150,115 1250,65 L1250,105 Q1150,155 950,115 Q700,45 450,85 Q200,125 -50,65Z" fill="white"/>
+          <path d="M-50,65 Q200,125 450,85 Q700,45 950,115 Q1150,155 1250,105 L1250,145 Q1150,185 950,155 Q700,85 450,125 Q200,165 -50,105Z" fill="#1A6B35"/>
+        </svg>
+
+        <div style="margin-top: 120px;">
+          <p style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--india-green);margin-bottom:1.5rem;">How Indian Literature Echoes the Spirit of Atmanirbhar Bharat</p>
+          <h1 class="cover-title">SOIL TO SKY</h1>
+          <p class="cover-sub">India's Self-Reliant Rise</p>
+          <div class="divider-ornament" style="margin:1.2rem auto;">
+            <span></span><div class="diamond"></div><span></span>
+          </div>
+
+          <div style="max-width:560px;margin:2rem auto;">
+            <p style="font-family:'Crimson Pro',serif;font-size:16px;line-height:1.85;color:#3A2A0A;font-style:italic;text-align:center;">
+              "Atmanirbhar Bharat is more than a government slogan. It is the crystallisation of a centuries-old aspiration: the yearning of a vast, complex civilisation to stand on its own feet, to imagine its own future, and to craft that future with its own hands."
+            </p>
+          </div>
+
+          <div class="team-box" style="margin-top:2.5rem;">
+            <div class="team-label">A Collaborative Work by</div>
+            <p>Altamash Tariq · Lohitaksh Choudhary · Shardul Chaturvedi<br>
+            Prajit Verma · Harisrat Kaur · Tejas Sharma<br><br>
+            Presented to <strong>Dr. K. Ezhil</strong><br>
+            Department of Computer Science &amp; Engineering<br>
+            SRM Institute of Science and Technology, Kattankulathur</p>
+          </div>
+
+          <div style="margin-top:2.5rem;text-align:center;">
+            <p style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--saffron);">ATMANIRBHAR BHARAT</p>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.2em;color:rgba(0,0,0,0.35);">SELF-RELIANT · SOVEREIGN · STRONG</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CHAPTER 1: INTRODUCTION ===== -->
+    <div class="chapter-page" id="ch-1">
+      <div class="chapter-hero ch1-hero">
+        <div class="hero-deco">I</div>
+        <p class="chapter-hero-num">Chapter One</p>
+        <h1 class="chapter-hero-title">Introduction</h1>
+        <p class="chapter-hero-subtitle">The Idea of Self-Reliance — Atmanirbhar Bharat</p>
+      </div>
+      <div class="book-body">
+        <h2>1.1 Aim</h2>
+        <p>Atmanirbhar Bharat is more than a government slogan or an economic policy framework. It is the crystallisation of a centuries-old aspiration: the yearning of a vast, complex civilisation to stand on its own feet, to imagine its own future, and to craft that future with its own hands, its own ingenuity, and its own indomitable spirit.</p>
+        <p>The concept rests upon five foundational pillars: Economy, Infrastructure, Technology-Driven Systems, Vibrant Demography, and Demand. Yet to reduce Atmanirbhar Bharat to these five administrative categories is to miss its soul entirely. The soul of this vision is the soul of India itself — a soul that has been articulated, argued over, celebrated, and mourned in the novels, poems, short stories, and autobiographies of India's most gifted writers.</p>
+
+        <h2>1.2 Concept of Self-Reliance</h2>
+        <p>The idea of Atmanirbhar Bharat (Self-Reliant India) is often associated with economic independence, industrial growth, and national development. However, true self-reliance goes beyond material success and includes emotional strength, social responsibility, cultural identity, and moral courage.</p>
+        <p>As seen in Tagore's rural narratives and Manto's urban realities, self-reliance is not merely about financial independence but about the ability to survive, adapt, and grow despite challenges. These stories reflect how individuals struggle between dependence and independence in different social contexts.</p>
+
+        <h3>1.1.2 Literary Perspective</h3>
+        <p>Short stories provide a powerful lens to understand self-reliance. They present realistic situations where characters face emotional, social, and economic struggles.</p>
+        <ul>
+          <li>In <em>The Postmaster</em>, emotional dependence limits self-reliance</li>
+          <li>In <em>Kabuliwala</em>, cultural identity strengthens human connection</li>
+          <li>In <em>Ten Rupees</em>, survival becomes a form of self-reliance in harsh economic conditions</li>
+          <li>In <em>Ram Khilavan</em>, relationships highlight social interdependence</li>
+        </ul>
+
+        <h2>1.3 The Books and Their Significance</h2>
+        <p>In this study, the selected literary works collectively paint a rich tapestry of Indian self-reliance, each contributing a unique perspective on the themes of independence, dignity, economic agency, social justice, scientific temper, and the aspiration for a better future.</p>
+        <p><em>Wings of Fire</em> by A.P.J. Abdul Kalam inspires with its emphasis on scientific advancement and personal determination, illustrating how an individual's dreams can propel a nation forward. Arundhati Roy's <em>The God of Small Things</em> delves into the intricate social fabrics and the quest for personal dignity amidst societal constraints. <em>Gitanjali</em> by Rabindranath Tagore, with its spiritually uplifting verses, invokes a sense of inner freedom and the universal quest for self-realization.</p>
+        <p>Malgudi Days by R.K. Narayan captures the essence of everyday resilience. Premchand's <em>Salt</em> portrays economic struggles and the quest for justice. Ruskin Bond's <em>The Blue Umbrella</em> reflects the innocence and inherent goodness that can drive change in small communities. Aravind Adiga's <em>The White Tiger</em> presents a stark commentary on economic disparity. B.R. Ambedkar's <em>Annihilation of Caste</em> stands as a powerful manifesto advocating for social justice and equality.</p>
+
+        <h2>1.4 Aim and Objectives of the Study</h2>
+        <h3>1.4.1 Aim</h3>
+        <p>This study aims to conduct a sustained, multidimensional literary analysis of three selected short stories — <em>The Gold Frame</em> by R. K. Laxman, <em>The Postmaster</em> by Rabindranath Tagore, and <em>The Homecoming</em> by Rabindranath Tagore — through the thematic lens of Atmanirbhar Bharat.</p>
+
+        <h3>1.4.2 Objectives</h3>
+        <ul>
+          <li>To analyse how each story defines, embodies, challenges, or critiques the concept of self-reliance in its specific context</li>
+          <li>To examine the relationship between material prosperity and emotional or spiritual well-being in each narrative</li>
+          <li>To explore the role of rural India as both the ground and the test of genuine self-reliance</li>
+          <li>To investigate the ways in which ambition, enterprise, and aspiration are represented, and the moral frameworks within which they are evaluated</li>
+          <li>To consider how cultural identity, tradition, and community function as resources for — or obstacles to — authentic self-reliance</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ===== CHAPTER 2: THE GOLDEN HARVEST ===== -->
+    <div class="chapter-page" id="ch-2">
+      <div class="chapter-hero ch2-hero">
+        <div class="hero-deco">II</div>
+        <p class="chapter-hero-num">Chapter Two</p>
+        <h1 class="chapter-hero-title">The Golden Harvest</h1>
+        <p class="chapter-hero-subtitle">Roots of Rural Self-Reliance</p>
+      </div>
+      <div class="book-body">
+        <h2>2.1 Rural India as the Foundation</h2>
+        <p>Any serious engagement with the idea of Atmanirbhar Bharat must begin with the village. More than sixty per cent of India's population continues to live in rural areas, and for much of the nation's history, the village was not merely a demographic fact but a civilizational ideal — the unit of self-sufficient life that Gandhi, following generations of thinkers before him, regarded as the model of a genuinely self-reliant society.</p>
+
+        <div class="literary-quote">
+          <p>"Where the mind is without fear and the head is held high, where knowledge is free... into that heaven of freedom, my Father, let my country awake."</p>
+          <cite>— Rabindranath Tagore, Gitanjali</cite>
+        </div>
+
+        <p>Reality, of course, was always more complicated than the ideal. Indian villages have historically been marked by deep inequalities of caste and gender, by vulnerability to drought and flood, by the exploitation of the poor by the powerful. Yet even amid these difficulties, rural communities developed extraordinary resources of resilience — emotional, cultural, and practical — that constitute one of the deepest wells of Indian self-reliance.</p>
+
+        <div class="story-card">
+          <div class="story-card-label">Story One</div>
+          <h3>Panch Parmeshwar</h3>
+          <div class="author">by Munshi Premchand</div>
+          <p>Jumman Sheikh and Alagu Chaudhary are the closest of friends in a small North Indian village — their friendship transcending religion: Jumman is Muslim, Alagu is Hindu. But the story is not about friendship so much as about justice.</p>
+          <p>Jumman's old aunt, having transferred her small property to him in exchange for lifetime care, finds herself increasingly mistreated. She calls a Panchayat — a village council. She asks that her nephew's close friend, Alagu, serve as the Sarpanch. Jumman is delighted: surely Alagu will rule in his favor. But when Alagu takes his seat, something profound happens: "the realization of responsibility." The two men embrace. Their friendship, tested by justice, becomes stronger than before.</p>
+          <div class="connection-box">
+            <div class="label">Atmanirbhar Bharat Connection</div>
+            <p>Panch Parmeshwar is a manifesto for democratic self-governance at the village level. The Panchayati Raj system, cornerstone of India's rural strategy, rests on exactly this premise: that ordinary people, given institutional authority, will rise to the occasion of justice.</p>
+          </div>
+        </div>
+
+        <h2>2.2 Science as Self-Reliance: India's Technological Independence</h2>
+
+        <div class="literary-quote">
+          <p>"Failure will never overtake me if my determination to succeed is strong enough."</p>
+          <cite>— APJ Abdul Kalam</cite>
+        </div>
+
+        <p>In <em>Wings of Fire</em>, A.P.J. Abdul Kalam eloquently illustrates the journey towards India's technological sovereignty, a journey driven by necessity and vision. During the 1960s and 70s, India faced significant challenges in acquiring essential technologies. Projects like Devil and Valiant highlighted obstacles as India struggled to develop guided missiles amidst international sanctions. Rather than succumbing to frustration, Kalam and his team transformed these setbacks into motivation — the spirit of turning constraints into catalysts.</p>
+
+        <div class="story-card">
+          <div class="story-card-label">Story Two</div>
+          <h3>Kabuliwallah</h3>
+          <div class="author">by Rabindranath Tagore</div>
+          <p>Rahman, the Kabuliwallah, is an Afghan peddler who sells dry fruits door-to-door in Calcutta — the picture of the rural-to-urban migrant entrepreneur, trading across borders of language and culture. He becomes friends with Mini, the narrator's five-year-old daughter.</p>
+          <p>Years pass. Rahman serves a prison sentence. When released, he returns to Mini's house — she has grown into a young woman on her wedding day. He brings her a little paper packet of dried fruits freighted with memory: it reminds him of his own daughter, left behind in Afghanistan years ago.</p>
+          <div class="connection-box">
+            <div class="label">Atmanirbhar Bharat Connection</div>
+            <p>Kabuliwallah anticipates the Atmanirbhar Bharat push to formalize and dignify the informal economy. Rahman's trade — unregistered, cash-based, relationship-dependent — represents the informal sector that employs the majority of India's rural migrants. A self-reliant India must recognize and protect the dignity of its informal economy.</p>
+          </div>
+        </div>
+
+        <div class="story-card">
+          <div class="story-card-label">Story Three</div>
+          <h3>The Tractor and the Corn Goddess</h3>
+          <div class="author">by Mulk Raj Anand</div>
+          <p>Anand depicts the moment when a tractor first arrives in a North Indian village. The village headman, Ramu, watches as the machine plows his ancestral field — the same field where, for generations, his family has performed the rituals of the Corn Goddess before planting. The tractor is faster, cheaper, and indifferent.</p>
+          <div class="literary-quote">
+            <p>"The machine does not know the field. The field does not know the machine. Between the two, where does Ramu stand?"</p>
+            <cite>— Internal monologue, The Tractor and the Corn Goddess</cite>
+          </div>
+          <div class="connection-box">
+            <div class="label">Atmanirbhar Bharat Connection</div>
+            <p>This story is essential reading for anyone designing agricultural policy. Atmanirbhar Bharat's rural reforms must account for the cultural and spiritual dimension of Indian farming — or risk breaking the very social fabric that gives rural India its resilience. Self-reliance means modernization must happen on India's own terms.</p>
+          </div>
+        </div>
+
+        <h2>2.3 Conclusion</h2>
+        <p>The roots of rural self-reliance lie in empowering villages with the resources, skills, and opportunities needed to sustain their own development while remaining connected to the broader national economy. Rural India, which forms the backbone of the country, holds immense potential in terms of agriculture, traditional crafts, local entrepreneurship, and human capital.</p>
+        <p>Strengthening this foundation requires a balanced approach that combines modern technology with indigenous knowledge systems. When women, youth, and marginalized communities are given equal opportunities and support, the entire rural ecosystem becomes stronger and more dynamic. True self-reliance can only be achieved when development is participatory, ensuring that local communities have a voice in decision-making and ownership of their progress.</p>
+      </div>
+    </div>
+
+    <!-- ===== CHAPTER 3: BAZAAR OF DREAMS ===== -->
+    <div class="chapter-page" id="ch-3">
+      <div class="chapter-hero ch3-hero">
+        <div class="hero-deco">III</div>
+        <p class="chapter-hero-num">Chapter Three</p>
+        <h1 class="chapter-hero-title">The Bazaar of Dreams</h1>
+        <p class="chapter-hero-subtitle">Rise of Indian Entrepreneurship</p>
+      </div>
+      <div class="book-body">
+        <h2>3.1 Tagore's Vision of National Education</h2>
+        <p>Rabindranath Tagore's visionary contributions to the Atmanirbhar Bharat concept extend far beyond his literary achievements. His establishment of Shantiniketan as an educational institution represents a profound rethinking of what Indian education could aspire to be.</p>
+        <p>In a period dominated by British colonial education aimed at creating functionaries for the empire, Tagore envisioned an educational model that fostered holistic human development — designed to educate students in the natural environment, emphasizing experiential learning and integrating the arts as an essential component of education. This was an early example of educational self-reliance.</p>
+
+        <h2>3.2 Rise of Indian Entrepreneurship</h2>
+        <p>The marketplace is where India's Atmanirbhar Bharat vision finds its most vivid expression. From the Startup India initiative to the Make in India campaign, from the formalization of the MSME sector to the vision of India as a global manufacturing hub — the Atmanirbhar framework is fundamentally a vision of Indian enterprise.</p>
+        <p>But enterprise, as India's storytellers knew, is not merely an economic activity. It is a moral one. The question of how ambition is directed — toward authentic value creation or superficial status, guided by integrity or expediency — is the central question of Indian mercantile literature.</p>
+
+        <div class="story-card">
+          <div class="story-card-label">Story One</div>
+          <h3>The Gold Frame</h3>
+          <div class="author">by R.K. Laxman</div>
+          <p>A lower-middle-class office worker becomes obsessed with hanging a painting in a gold frame in his home — to impress his colleagues and neighbors. He cannot afford a real painting, so he commissions a mediocre reproduction. The frame is magnificent; the painting inside is ordinary.</p>
+          <div class="literary-quote">
+            <p>"The frame cost more than a month's salary. Inside it was a picture worth ten rupees. But what people saw was the frame."</p>
+            <cite>— The Gold Frame, R.K. Laxman</cite>
+          </div>
+          <div class="connection-box">
+            <div class="label">Atmanirbhar Bharat Connection</div>
+            <p>The Gold Frame is a parable for the Atmanirbhar Bharat moment. India has long been tempted by the gold frame mentality — importing foreign goods, foreign standards, foreign culture as a performance of modernity. The Atmanirbhar vision asks India to fill its own frames with indigenous products, technology, and brands worthy of the gold frame they inhabit.</p>
+          </div>
+        </div>
+
+        <div class="story-card">
+          <div class="story-card-label">Story Two</div>
+          <h3>Divine Justice</h3>
+          <div class="author">by Munshi Premchand</div>
+          <p>Munshi Satyanarayan has spent eight years faithfully managing the estate of a widow. When the opportunity arises to steal a fertile village for himself, he rationalizes the theft. But the widow discovers the deceit and takes him to court. After winning legally on a technicality, she asks him in front of the entire assembly: "Tell honestly — who is the real owner of the village?" He cannot lie. He says, in a trembling voice: "Yours."</p>
+          <p>He loses the village. But he gains something more valuable: the respect of the entire city, and his own conscience. Moved by his honesty, she eventually gifts him the village — freely, as a reward for the courage of a single true word.</p>
+          <div class="literary-quote">
+            <p>"This is not legal justice. This is Divine Justice."</p>
+            <cite>— The Judge, Divine Justice, Premchand</cite>
+          </div>
+          <div class="connection-box">
+            <div class="label">Atmanirbhar Bharat Connection</div>
+            <p>Divine Justice maps precisely onto the Atmanirbhar Bharat vision of ethical capitalism. Sustainable enterprise — the kind that can form the backbone of a self-reliant economy — must be grounded in institutional honesty. No economic framework can thrive on the absence of moral authority.</p>
+          </div>
+        </div>
+
+        <div class="story-card">
+          <div class="story-card-label">Story Three</div>
+          <h3>The Cobbler and the Machine</h3>
+          <div class="author">by Mulk Raj Anand</div>
+          <p>Anand's cobbler is an artisan who has inherited his trade from his father and grandfather. He makes shoes by hand, with tools so worn they are extensions of his fingers. Then a shoe factory opens nearby. The factory shoes are cheaper, better-finished, and endlessly available. Munoo's customers disappear.</p>
+          <p>Then, in a moment of narrative grace, he looks at a pair of his own shoes and sees what the factory cannot make: the exact fit, the personal knowledge of each customer's foot, the small repairs, the relationship.</p>
+          <div class="connection-box">
+            <div class="label">Atmanirbhar Bharat Connection</div>
+            <p>This is an Atmanirbhar Bharat text avant la lettre. The government's push to revive traditional crafts through GI tags, ODOP (One District One Product) schemes, and artisan cooperatives is the policy version of what Anand's story dramatizes: the fight of indigenous craft against industrial uniformity.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CHAPTER 4: TAPESTRY OF TIME ===== -->
+    <div class="chapter-page" id="ch-4">
+      <div class="chapter-hero ch4-hero">
+        <div class="hero-deco">IV</div>
+        <p class="chapter-hero-num">Chapter Four</p>
+        <h1 class="chapter-hero-title">The Tapestry of Time</h1>
+        <p class="chapter-hero-subtitle">Culture as Strength</p>
+      </div>
+      <div class="book-body">
+        <h2>4.1 Culture as Strength</h2>
+        <p>Culture is the deepest form of self-reliance. A nation that has lost its cultural identity has lost its most fundamental asset — the shared story that tells its people who they are, what they value, and where they are going. The Atmanirbhar Bharat vision understands this: embedded within it is a deep commitment to India's civilizational heritage, to the revival of traditional knowledge systems, and to the assertion of Indian culture as a source of global value.</p>
+        <p>India's storytellers have always been cultural architects. Tagore's stories argue for a Bengali identity that is neither colonial nor chauvinist but humanist and open. Manto's stories insist on the irreducible humanity of the Muslim in the subcontinent. Together, their work constitutes a literary argument for cultural self-reliance.</p>
+
+        <h2>4.2 Cultural Bonds That Cross Borders</h2>
+        <p>Among the paradoxes of Atmanirbhar Bharat is this: self-reliance is not autarky. India does not seek to cut itself off from the world but to engage with it from a position of strength and self-knowledge.</p>
+
+        <div class="story-card">
+          <div class="story-card-label">Story One</div>
+          <h3>Mozelle</h3>
+          <div class="author">by Saadat Hasan Manto</div>
+          <p>Manto's <em>Mozelle</em> is set in the Lahore of the 1940s, a city of multiple communities living in proximity. Mozelle is a young Jewish woman — part of a tiny but ancient Indian Jewish community — who becomes the object of attention from her Hindu and Muslim neighbors. What Manto shows is a world in which communal identity exists but does not prevent genuine human connection.</p>
+          <p>Manto wrote this story with full knowledge of what was coming — the Partition, the violence, the shattering of exactly this composite world. Mozelle is, in part, an elegy for a cultural richness that was being destroyed even as he recorded it.</p>
+          <div class="connection-box">
+            <div class="label">Atmanirbhar Bharat Connection</div>
+            <p>Mozelle is a reminder that Atmanirbhar Bharat's cultural vision must be inclusive of India's plural identity. India's composite culture — the synthesis of Hindu, Muslim, Buddhist, Jain, Sikh, Jewish, and tribal traditions — is its unique civilizational offering to the world. A self-reliant India that draws only on one thread of its cultural tapestry is a weaker India, not a stronger one.</p>
+          </div>
+        </div>
+
+        <h2>Premchand and the Village Economy</h2>
+        <p>Munshi Premchand, often hailed as the father of modern Hindi and Urdu fiction, crafted a literary legacy that delves deeply into the socio-economic and cultural fabric of rural India. His narratives, penned in the early 20th century, offer a poignant and comprehensive exploration of the struggles faced by India's villages.</p>
+        <p>Among his prolific body of work, the short story <em>Salt</em> stands out as a powerful allegory of the Swadeshi movement — encapsulating the spirit of economic self-reliance and the quest for justice, mirroring Gandhi's iconic Salt March.</p>
+
+        <div class="story-card">
+          <div class="story-card-label">Story Two</div>
+          <h3>A Village Idyll</h3>
+          <div class="author">by Mulk Raj Anand</div>
+          <p>Anand's <em>A Village Idyll</em> is an impressionistic portrait of a day in an Indian village — the rhythms of dawn, the sounds of agricultural work, the conversations at the well, the shared meal, the evening's gathering under the peepal tree. There is no plot, strictly speaking. There is only life: its textures, its relationships, its slow permanence.</p>
+          <p>What Anand captures is the richness of village culture — not as a quaint backdrop for drama but as a complete civilization with its own epistemology, aesthetic, and moral philosophy.</p>
+          <div class="connection-box">
+            <div class="label">Atmanirbhar Bharat Connection</div>
+            <p>A Village Idyll supports the Atmanirbhar Bharat cultural framework in its most concrete dimension: the GI tag program, Tribal Art promotion, Handloom revival, the SVAMITVA scheme. Each of these programs rests on the premise that India's village culture is valuable — worth documenting, protecting, and developing.</p>
+          </div>
+        </div>
+
+        <h2>Partition, Identity, and the Fracture of Self-Reliance</h2>
+        <p>Saadat Hasan Manto remains an indelible figure in South Asian literature, revered for his unflinching portrayal of the harsh realities during and after the Partition of 1947. His works are not just narratives of despair; they are a mirror held up to humanity, urging introspection and understanding.</p>
+        <div class="literary-quote">
+          <p>"I am neither Indian nor Pakistani. I am just a human being who sees clearly, and says what he sees."</p>
+          <cite>— Saadat Hasan Manto</cite>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CHAPTER 5: COLOR OF CHANGE ===== -->
+    <div class="chapter-page" id="ch-5">
+      <div class="chapter-hero ch5-hero">
+        <div class="hero-deco">V</div>
+        <p class="chapter-hero-num">Chapter Five</p>
+        <h1 class="chapter-hero-title">Color of Change</h1>
+        <p class="chapter-hero-subtitle">Youth, Innovation &amp; Social Empowerment</p>
+      </div>
+      <div class="book-body">
+        <h2>The White Tiger: Portrait of the New India</h2>
+        <p>Aravind Adiga's debut novel, <em>The White Tiger</em>, published in 2008 and winner of the Man Booker Prize, is one of the most controversial, provocative, and uncompromising novels of contemporary Indian fiction. Narrated by Balram Halwai — a poor village boy from 'the Darkness' of rural Bihar who murders his employer and becomes a successful entrepreneur in Bangalore — the novel is a savage examination of the economic and moral contradictions of India's rise.</p>
+        <p>The novel takes the form of letters written by Balram to the Chinese Premier Wen Jiabao, who is visiting India to study its model of development. This framing device is itself a pointed irony: India is presenting itself to the world as an economic success story while Balram — the white tiger, the once-in-a-generation entrepreneur who escapes the rooster coop — has achieved his success through murder.</p>
+
+        <h2>6.1 The Anatomy of Economic Dependency</h2>
+        <p>The most powerful metaphor in <em>The White Tiger</em> is the Rooster Coop — Balram's image for the social and economic system that keeps poor Indians permanently servile. He describes roosters in a coop at a poultry market: they can see the other roosters being slaughtered, they can see the knife, and yet they do not run. Why? Because they cannot imagine anything else.</p>
+        <p>The Rooster Coop is maintained not through violence alone but through a complex system of obligations — family loyalty, debt bondage, religious deference, caste hierarchy — that Balram describes in meticulous and bitter detail.</p>
+
+        <div class="story-card">
+          <div class="story-card-label">Story — Anand</div>
+          <h3>The Signature</h3>
+          <div class="author">by Mulk Raj Anand</div>
+          <p>The protagonist is an aging peasant woman, illiterate all her life, who is asked to put her thumbprint on a legal document. It is the thumbprint of a person who does not exist in the eyes of the law. The story follows her decision to learn, at last, to write her name.</p>
+          <p>She learns despite cramps in her hand, the frustration of remembered shapes, the ridicule of younger women. And when she finally signs her name, the signature is not beautiful. It is barely legible. But it is real.</p>
+          <div class="literary-quote">
+            <p>"Her name. Written by her own hand. No longer a thumbprint. A name."</p>
+            <cite>— The Signature, Mulk Raj Anand</cite>
+          </div>
+          <div class="connection-box">
+            <div class="label">Atmanirbhar Bharat Connection</div>
+            <p>The Signature is the literary foundation of India's Beti Bachao Beti Padhao programme, the Mahila Shakti Kendras, the Jan Dhan Yojana accounts for women, and the Self-Help Group movement. Legal identity — the ability to sign one's own name — is the most fundamental prerequisite for economic self-reliance.</p>
+          </div>
+        </div>
+
+        <div class="story-card">
+          <div class="story-card-label">Story — Tagore</div>
+          <h3>The Living and the Dead</h3>
+          <div class="author">by Rabindranath Tagore</div>
+          <p>In one of Tagore's most uncanny stories, Kadambini, a widow who appears to have died, revives and returns home. But neither she nor anyone around her can be certain she is truly alive. The social death of widowhood in nineteenth-century Bengal was so complete that her physical survival seems, in some ways, less important than her social status.</p>
+          <p>Kadambini wanders from house to house, unable to establish her own existence. Everywhere she goes, she is treated as a ghost. The story ends in genuine tragedy.</p>
+          <div class="connection-box">
+            <div class="label">Atmanirbhar Bharat Connection</div>
+            <p>The Living and the Dead speaks to the Atmanirbhar Bharat vision's social inclusion dimension. PM SVANidhi for street vendors, PMAY housing, Ujjwala gas connections, Jan Dhan bank accounts — each of these programs is an attempt to bring the socially invisible into formal existence.</p>
+          </div>
+        </div>
+
+        <h2>B.R. Ambedkar: Caste as the Enemy of Self-Reliance</h2>
+        <p>If Adiga's <em>White Tiger</em> shows what happens when a talented poor person finally breaks the chains of the Rooster Coop, B.R. Ambedkar's <em>Annihilation of Caste</em> — his undelivered speech of 1936, now recognised as one of the most important political documents in Indian history — explains why those chains exist and why they must be permanently destroyed.</p>
+        <p>Bhimrao Ramji Ambedkar, born into a Mahar (Dalit) family in 1891, overcame the full weight of caste discrimination through education and extraordinary intellectual effort. He earned doctorates from Columbia University and the London School of Economics, and went on to become the principal architect of the Indian Constitution.</p>
+
+        <h2>The Constitution as a Blueprint for Atmanirbhar Bharat</h2>
+        <p>Ambedkar's <em>Annihilation of Caste</em> argues that caste is not merely a religious practice or social custom — it is an economic system, one that reserves certain occupations for certain groups and denies others the right to compete on equal terms. It is a system for the manufacture and perpetuation of economic dependency.</p>
+        <p>This is the deepest challenge to the Atmanirbhar Bharat vision that Indian literature poses. Self-reliance is not possible for communities that are structurally denied the conditions for self-reliance. A nation cannot be truly self-reliant if a quarter of its population continues to face discrimination in employment, education, and social life.</p>
+      </div>
+    </div>
+
+    <!-- ===== CHAPTER 6: CONCLUSION ===== -->
+    <div class="chapter-page" id="ch-6">
+      <div class="chapter-hero ch6-hero dark-hero">
+        <div class="hero-deco" style="color:var(--saffron);opacity:0.15;">VI</div>
+        <p class="chapter-hero-num">Chapter Six</p>
+        <h1 class="chapter-hero-title">Conclusion</h1>
+        <p class="chapter-hero-subtitle">The Literary Vision of Atmanirbhar Bharat</p>
+      </div>
+      <div class="book-body">
+
+        <div class="literary-quote" style="margin-top:1rem;">
+          <p>"We shall overcome not because we are strong, but because we are determined to be free."</p>
+        </div>
+
+        <h2>6.1 Reimagining Prosperity: A Self-Reliant India</h2>
+        <p>We began this book with a salt inspector standing at a river crossing in the dead of night, refusing a bribe of forty thousand rupees. We end it with the same question: what does it mean for a nation to stand on its own feet?</p>
+        <p>Across eighteen stories by seven authors — Premchand, Tagore, Mulk Raj Anand, R.K. Laxman, Manto, and others drawn from India's rich tradition of short fiction — we have seen a consistent answer take shape. Self-reliance is not independence from others. It is the capacity to engage with others from a position of internal completeness.</p>
+
+        <h2>6.2 The Five Threads of the Book</h2>
+        <p>This book has traced five threads through the tapestry of Indian literary self-reliance:</p>
+
+        <div class="thread-item">
+          <div class="thread-dot td-saffron">1</div>
+          <div class="thread-body">
+            <h4>Institutional Integrity</h4>
+            <p>Premchand's stories insist, again and again, that no social or economic system can function without human beings who are capable of saying no to corruption, even at personal cost. Vanshidhar, Alagu Chaudhary, Satyanarayan — each represents the moral infrastructure on which Atmanirbhar Bharat must rest.</p>
+          </div>
+        </div>
+
+        <div class="thread-item">
+          <div class="thread-dot td-green">2</div>
+          <div class="thread-body">
+            <h4>Rural Wisdom</h4>
+            <p>Tagore, Premchand, and Anand all draw their deepest strength from the Indian village — not as a museum of tradition but as a living system of justice, community, and ecological knowledge. The Atmanirbhar Bharat vision's agricultural reforms will succeed only if they listen to this wisdom rather than steamrolling it.</p>
+          </div>
+        </div>
+
+        <div class="thread-item">
+          <div class="thread-dot td-gold">3</div>
+          <div class="thread-body">
+            <h4>Cultural Confidence</h4>
+            <p>Kabuliwallah's Rahman, Mozelle, A Village Idyll — these stories constitute an argument for a culturally confident India that is neither defensive nor servile, but genuinely open to the world from a position of self-knowledge. India's soft power and civilizational contribution to global culture is the dimension of Atmanirbhar Bharat that literature models most directly.</p>
+          </div>
+        </div>
+
+        <div class="thread-item">
+          <div class="thread-dot td-crimson">4</div>
+          <div class="thread-body">
+            <h4>Human-Centered Technology</h4>
+            <p>The Postmaster and The Cobbler and the Machine are not anti-technology stories. They are pro-human technology stories. They insist that technological change must serve people — must reach Ratan at the riverbank, must preserve the cobbler's knowledge even while transforming his tools.</p>
+          </div>
+        </div>
+
+        <div class="thread-item">
+          <div class="thread-dot td-purple">5</div>
+          <div class="thread-body">
+            <h4>Social Inclusion</h4>
+            <p>The Signature, The Living and the Dead, The Homecoming — these stories make the most fundamental argument of all: that a nation's self-reliance is only as strong as its weakest member's opportunity to write her own name.</p>
+          </div>
+        </div>
+
+        <h2>6.3 What Literature Has Taught Us</h2>
+        <p>We began this journey with a question: what does Indian literature have to say about Atmanirbhar Bharat? We have now traversed nine landmark works, crossing the landscapes of Rameswaram and Ayemenem, Malgudi and Garhwal, Bihar and Bangalore, colonial Punjab and divided India.</p>
+        <p>Arundhati Roy taught us that self-reliance requires social justice — that a nation cannot claim to be self-reliant while the talent and humanity of entire communities (women, Dalits, the rural poor) continue to be constrained by inherited hierarchies.</p>
+        <p>APJ Abdul Kalam taught us that self-reliance begins in the mind — in the willingness to dream beyond the limits that circumstance imposes. Tagore's <em>Gitanjali</em> taught us that true freedom must be grounded in inner freedom. Narayan's Malgudi taught us that the raw material of India's self-reliance already exists in the resilience, ingenuity, and humanity of ordinary Indians.</p>
+        <p>Premchand taught us that the village and the agricultural worker are not problems to be solved by urban development but the foundation on which any authentic Indian self-reliance must be built. Manto taught us that division — religious, political, social — is the greatest enemy of self-reliance. Adiga taught us that economic growth without equity is not Atmanirbhar Bharat.</p>
+
+        <h2>6.4 The Ultimate Self-Reliance</h2>
+        <p>Ultimately, what all nine of these literary works argue, in their different ways, is that the deepest form of self-reliance is not economic or even political — it is human. It is the capacity of every Indian, regardless of birth, to stand upright in the world, to think for themselves, to create, to love, to dream, and to contribute.</p>
+        <p>It is the freedom from fear that Tagore prayed for. It is the rocket that Kalam launched from a country that the world had written off. It is the blue umbrella that Binya carried through the Himalayan rain — a small, beautiful, entirely unnecessary thing that was, precisely because of its beauty and unnecessariness, everything.</p>
+        <div class="literary-quote" style="margin-top:2rem;">
+          <p>"India is a civilisation of extraordinary depth and complexity, of ancient wisdom and modern ambition, of stunning diversity and recurring aspiration towards unity. To read that literature alongside the vision of Atmanirbhar Bharat is to understand that the vision, at its best, is not new. It is the re-articulation, in contemporary policy language, of the deepest dream of Indian civilisation: to be truly, fully, humanly free."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== BIBLIOGRAPHY ===== -->
+    <div class="chapter-page" id="ch-7">
+      <div class="chapter-hero ch7-hero">
+        <p class="chapter-hero-num">References</p>
+        <h1 class="chapter-hero-title">Bibliography</h1>
+        <p class="chapter-hero-subtitle">Sources &amp; Further Reading</p>
+      </div>
+      <div class="book-body">
+        <h2>Primary Sources</h2>
+        <div class="bib-entry">Adiga, Aravind. <em>The White Tiger</em>. New Delhi: HarperCollins India, 2008.</div>
+        <div class="bib-entry">Ambedkar, B.R. <em>Annihilation of Caste: The Annotated Critical Edition</em>. New Delhi: Navayana Publishing, 1936/2014. (Ed. S. Anand)</div>
+        <div class="bib-entry">Bond, Ruskin. <em>The Blue Umbrella</em>. New Delhi: Penguin Books India, 1974.</div>
+        <div class="bib-entry">Kalam, A.P.J. Abdul, and Arun Tiwari. <em>Wings of Fire: An Autobiography</em>. Hyderabad: Universities Press, 1999.</div>
+        <div class="bib-entry">Manto, Saadat Hasan. <em>Black Margins: Manto</em>. Trans. M. Asaduddin. New Delhi: Katha, 2001.</div>
+        <div class="bib-entry">Narayan, R.K. <em>Malgudi Days</em>. London: Heinemann, 1943. (Expanded edition, Viking, 1982)</div>
+        <div class="bib-entry">Premchand, Munshi. <em>The World of Premchand: Selected Short Stories</em>. Trans. David Rubin. Bloomington: Indiana University Press, 1969.</div>
+        <div class="bib-entry">Roy, Arundhati. <em>The God of Small Things</em>. New Delhi: IndiaInk, 1997.</div>
+        <div class="bib-entry">Tagore, Rabindranath. <em>Gitanjali: Song Offerings</em>. London: Macmillan, 1912.</div>
+
+        <div style="margin-top:3rem;padding:2rem;background:var(--ink);color:var(--white-cream);text-align:center;">
+          <p style="font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;">About the Authors</p>
+          <p style="font-family:'Crimson Pro',serif;font-size:15px;line-height:1.8;color:rgba(247,244,236,0.8);">The book is a collaborative work by B.Tech CSE students of Section N1:</p>
+          <p style="font-family:'Playfair Display',serif;font-size:16px;margin:0.8rem 0;color:var(--saffron);">Lohitaksh Choudhary · Shardul Chaturvedi · Harisrat Kaur<br>Tejas Sharma · Prajit Verma · Altamash Tariq</p>
+          <div style="margin:1.5rem 0;height:1px;background:rgba(201,168,76,0.2);"></div>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:0.15em;color:var(--saffron);">ATMANIRBHAR BHARAT</p>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.2em;color:rgba(247,244,236,0.3);">SELF-RELIANT · SOVEREIGN · STRONG</p>
+          <div style="margin-top:1.5rem;padding:1rem;border:1px solid rgba(201,168,76,0.2);">
+            <p style="font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;color:rgba(247,244,236,0.6);line-height:1.7;">"It shall be the duty of every citizen of India to strive towards excellence in all spheres of individual and collective activity so that the nation constantly rises to higher levels of endeavour and achievement."</p>
+            <p style="font-size:11px;color:var(--gold);letter-spacing:0.15em;margin-top:0.5rem;">Article 51A — The Constitution of India</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  const TOTAL = 8;
+  let current = 0;
+
+  function openBook() {
+    document.getElementById('hero').style.display = 'none';
+    document.getElementById('book-section').classList.add('open');
+    goTo(0);
+  }
+
+  function goTo(n) {
+    if (n < 0 || n >= TOTAL) return;
+
+    // Hide all chapters
+    document.querySelectorAll('.chapter-page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('#chapterNav button').forEach(b => b.classList.remove('active'));
+
+    // Show target
+    document.getElementById('ch-' + n).classList.add('active');
+    document.getElementById('nav-' + n).classList.add('active');
+
+    // Scroll to top
+    document.querySelector('.content-area').scrollTo(0, 0);
+    window.scrollTo(0, 0);
+
+    current = n;
+
+    // Update top bar title
+    const titles = [
+      'Cover & Preface',
+      'Chapter 1 — Introduction',
+      'Chapter 2 — The Golden Harvest',
+      'Chapter 3 — The Bazaar of Dreams',
+      'Chapter 4 — The Tapestry of Time',
+      'Chapter 5 — Color of Change',
+      'Chapter 6 — Conclusion',
+      'Bibliography'
+    ];
+    document.getElementById('topBarTitle').textContent = titles[n];
+
+    // Update nav buttons
+    document.getElementById('prevBtn').disabled = n === 0;
+    document.getElementById('nextBtn').disabled = n === TOTAL - 1;
+
+    // Update progress
+    const pct = Math.round((n / (TOTAL - 1)) * 100);
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('sidebarProgress').style.width = pct + '%';
+    document.getElementById('sidebarPct').textContent = pct + '%';
+
+    // Close mobile sidebar
+    closeSidebar();
+  }
+
+  function prevChapter() { goTo(current - 1); }
+  function nextChapter() { goTo(current + 1); }
+
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    sidebar.classList.toggle('mobile-open');
+    overlay.classList.toggle('active');
+  }
+
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('mobile-open');
+    document.getElementById('sidebarOverlay').classList.remove('active');
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (document.getElementById('book-section').classList.contains('open')) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextChapter();
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevChapter();
+    }
+  });
+</script>
+</body>
+</html>
